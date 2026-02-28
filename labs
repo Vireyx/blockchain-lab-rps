@@ -1,1 +1,182 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.31;
 
+/**
+ * RPSGame — учебная игра Камень-Ножницы-Бумага
+ *
+ * Как играть в Remix:
+ * 1) Deploy
+ * 2) Пополни банк контракта: fund() или просто отправь value на контракт (receive)
+ * 3) В поле VALUE поставь ставку (минимум MIN_BET)
+ * 4) В play вводишь ход:
+ *    0 = Rock (камень)
+ *    1 = Scissors (ножницы)
+ *    2 = Paper (бумага)
+ * 5) Нажми play — подтвердись в MetaMask
+ * 6) Результат смотри через getMyLastGame()
+ */
+contract RPSGame {
+    // Минимальная ставка: 100000 gwei (как у тебя в ошибке)
+    uint256 public constant MIN_BET = 100_000 gwei;
+
+    address public immutable owner;
+
+    // 0 Rock, 1 Scissors, 2 Paper
+    enum Move {
+        Rock,
+        Scissors,
+        Paper
+    }
+
+    // outcome: 1 win, 0 draw, -1 lose
+    struct Game {
+        uint8 playerMove;
+        uint8 botMove;
+        int8 outcome;
+        uint256 bet;
+        uint256 prize;
+        uint256 time;
+    }
+
+    mapping(address => Game) private lastGame;
+
+    event Funded(address indexed from, uint256 amount, uint256 contractBalance);
+    event Played(
+        address indexed player,
+        uint8 playerMove,
+        uint8 botMove,
+        int8 outcome,
+        uint256 bet,
+        uint256 prize,
+        uint256 contractBalanceAfter
+    );
+    event Withdrawn(address indexed to, uint256 amount);
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    // Можно просто отправлять деньги на контракт
+    receive() external payable {
+        emit Funded(msg.sender, msg.value, address(this).balance);
+    }
+
+    // Специальная кнопка пополнения банка (удобно в Remix)
+    function fund() external payable {
+        require(msg.value > 0, "Send some value");
+        emit Funded(msg.sender, msg.value, address(this).balance);
+    }
+
+    /**
+     * Играть: ставка берется из msg.value (VALUE в Remix)
+     * move:
+     * 0 = rock
+     * 1 = scissors
+     * 2 = paper
+     */
+    function play(uint8 move) external payable {
+        require(move <= 2, "Move must be 0..2");
+        require(msg.value >= MIN_BET, "Min bet is 100000 gwei");
+
+        // Чтобы контракт мог выплатить выигрыш 2x:
+        // после того как ты внес ставку, у контракта должно быть >= 2*ставки
+        // иначе возможен выигрыш, но платить нечем
+        require(address(this).balance >= msg.value * 2, "Contract balance is not enough");
+
+        uint8 bot = _randomMove(msg.sender);
+
+        int8 outcome = _resolve(move, bot);
+
+        uint256 prize = 0;
+
+        if (outcome == 1) {
+            // Победа: получаешь 2x ставки (т.е. +ставка прибыли)
+            prize = msg.value * 2;
+            (bool ok, ) = payable(msg.sender).call{value: prize}("");
+            require(ok, "Payout failed");
+        } else if (outcome == 0) {
+            // Ничья: возвращаем ставку
+            prize = msg.value;
+            (bool ok, ) = payable(msg.sender).call{value: prize}("");
+            require(ok, "Refund failed");
+        } else {
+            // Проигрыш: приз 0, ставка остается в банке
+            prize = 0;
+        }
+
+        lastGame[msg.sender] = Game({
+            playerMove: move,
+            botMove: bot,
+            outcome: outcome,
+            bet: msg.value,
+            prize: prize,
+            time: block.timestamp
+        });
+
+        emit Played(
+            msg.sender,
+            move,
+            bot,
+            outcome,
+            msg.value,
+            prize,
+            address(this).balance
+        );
+    }
+
+    // Твоя последняя игра — без ввода адреса
+    function getMyLastGame() external view returns (Game memory) {
+        return lastGame[msg.sender];
+    }
+
+    // Посмотреть последнюю игру любого игрока (нужно ввести address)
+    function getLastGame(address player) external view returns (Game memory) {
+        return lastGame[player];
+    }
+
+    // Вывод средств владельцем (банк)
+    function withdraw(uint256 amount) external {
+        require(msg.sender == owner, "Only owner");
+        require(amount <= address(this).balance, "Not enough balance");
+        (bool ok, ) = payable(owner).call{value: amount}("");
+        require(ok, "Withdraw failed");
+        emit Withdrawn(owner, amount);
+    }
+
+    // --- Внутреннее ---
+
+    function _randomMove(address player) internal view returns (uint8) {
+        // Учебный псевдорандом (для реальных денег нельзя)
+        uint256 r = uint256(
+            keccak256(
+                abi.encodePacked(
+                    block.prevrandao, // в новых сетях
+                    block.timestamp,
+                    block.number,
+                    player,
+                    address(this).balance
+                )
+            )
+        );
+        return uint8(r % 3);
+    }
+
+    // outcome: 1 win, 0 draw, -1 lose
+    function _resolve(uint8 p, uint8 b) internal pure returns (int8) {
+        if (p == b) return 0;
+
+        // Правила:
+        // Rock(0) beats Scissors(1)
+        // Scissors(1) beats Paper(2)
+        // Paper(2) beats Rock(0)
+        if (
+            (p == 0 && b == 1) ||
+            (p == 1 && b == 2) ||
+            (p == 2 && b == 0)
+        ) {
+            return 1;
+        }
+
+        return -1;
+    }
+}
