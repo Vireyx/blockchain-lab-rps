@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Flipper dApp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card">
+        <h1>Coin Flipper dApp</h1>
+        <p class="subtitle">Испытай удачу и выбери сторону монеты</p>
+
+        <div class="top-actions">
+            <button id="connectWallet">Подключить MetaMask</button>
+            <button id="checkBalance">Баланс контракта</button>
+        </div>
+
+        <div class="game-buttons">
+            <button id="playHeads">Орел</button>
+            <button id="playTails">Решка</button>
+            <button id="getResult">Get Result</button>
+        </div>
+
+        <div class="info-box">
+            <p><strong>Статус:</strong> <span id="status">Ожидание подключения...</span></p>
+            <p><strong>Результат:</strong> <span id="result">Пока пусто</span></p>
+            <p><strong>Контракт:</strong> <span id="contractBalance">Не проверен</span></p>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
