@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon RPS Arena</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+    <div class="bg-orb orb3"></div>
+
+    <main class="app">
+        <header class="topbar">
+            <h1>Neon RPS Arena</h1>
+            <p class="subtitle">Камень • Ножницы • Бумага</p>
+        </header>
+
+        <section class="wallet-panel">
+            <button id="connectWallet" class="main-btn">Подключить MetaMask</button>
+            <button id="checkBalance" class="secondary-btn">Баланс контракта</button>
+        </section>
+
+        <section class="scoreboard">
+            <div class="score-card user-score">
+                <span class="label">Игрок</span>
+                <span id="playerScore" class="score">0</span>
+            </div>
+
+            <div class="center-status">
+                <div id="roundText" class="round-text">Подключите кошелёк и выберите жест</div>
+                <div id="resultText" class="result-text">Арена ждёт</div>
+                <div id="statusText" class="status-text">Статус: не подключено</div>
+                <div id="contractBalanceText" class="balance-text">Баланс контракта: не проверен</div>
+            </div>
+
+            <div class="score-card bot-score">
+                <span class="label">Компьютер</span>
+                <span id="computerScore" class="score">0</span>
+            </div>
+        </section>
+
+        <section class="arena">
+            <div class="hand-panel player-panel">
+                <div class="panel-title">Ваш выбор</div>
+                <div id="playerChoiceDisplay" class="choice-display pink">?</div>
+            </div>
+
+            <div class="versus">VS</div>
+
+            <div class="hand-panel computer-panel">
+                <div class="panel-title">Выбор компьютера</div>
+                <div id="computerChoiceDisplay" class="choice-display blue">?</div>
+            </div>
+        </section>
+
+        <section class="choices">
+            <button class="choice-btn rock" data-choice="0">
+                <span class="emoji">✊</span>
+                <span class="name">Камень</span>
+            </button>
+
+            <button class="choice-btn scissors" data-choice="1">
+                <span class="emoji">✌</span>
+                <span class="name">Ножницы</span>
+            </button>
+
+            <button class="choice-btn paper" data-choice="2">
+                <span class="emoji">✋</span>
+                <span class="name">Бумага</span>
+            </button>
+        </section>
+
+        <section class="bottom-bar">
+            <button id="resetBtn" class="secondary-btn danger">Сбросить счёт</button>
+        </section>
+
+        <section class="history-card">
+            <div class="history-header">
+                <h2>История раундов</h2>
+                <span id="historyCount">0 ходов</span>
+            </div>
+            <ul id="historyList" class="history-list">
+                <li class="empty-history">История пока пуста</li>
+            </ul>
+        </section>
+    </main>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
