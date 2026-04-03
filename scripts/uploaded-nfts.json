@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "fileName": "algorithms.png",
+    "name": "Алгоритмы и структуры данных",
+    "tokenURI": "ipfs://QmSbayxdUidgXuG8WLeNQs3b4SBpqJWNphC2KxNB2ZMPNz"
+  },
+  {
+    "id": "2",
+    "fileName": "filesystem.png",
+    "name": "Файловая система",
+    "tokenURI": "ipfs://QmRrYuNuHVtTQzoduvoqnV3fFHeANo1YmPY4p9xFK5ZhHs"
+  },
+  {
+    "id": "3",
+    "fileName": "memory.png",
+    "name": "Управление памятью",
+    "tokenURI": "ipfs://QmSa8FJLmP4Civw5e5FC2yLsMbosC8FMd7dqTmzVAGrcjh"
+  },
+  {
+    "id": "4",
+    "fileName": "networks.png",
+    "name": "Компьютерные сети",
+    "tokenURI": "ipfs://QmX8qPFisqXiAaGkfoWEeQtatsFfgQ6y3xLadaQkUyndBf"
+  },
+  {
+    "id": "5",
+    "fileName": "processes.png",
+    "name": "Процессы в ОС",
+    "tokenURI": "ipfs://QmconPuBr63mPrRpyPLuC3R99dHxFmfW57BrPNxC729PMC"
+  }
+]

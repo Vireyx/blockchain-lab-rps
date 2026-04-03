@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя NFT Коллекция</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .contract-address {
+            text-align: center;
+            color: white;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0 auto 40px;
+            display: block;
+            max-width: 600px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .nft-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .nft-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .nft-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+        .nft-card img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+        .nft-info {
+            padding: 25px;
+        }
+        .token-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .nft-info h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        .nft-info p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .ipfs-hash {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            word-break: break-all;
+            color: #667eea;
+        }
+        .view-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .view-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Моя Образовательная NFT Коллекция</h1>
+        <div class="contract-address">
+            📄 Контракт: 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
+        </div>
+        
+        <div class="nft-grid">
+            <!-- NFT #2 -->
+            <div class="nft-card">
+                <img src="https://gateway.pinata.cloud/ipfs/QmWvrb1vnzR7PLvYkM1PCJ9FfAsSTNKMi718mUinw4qwZ" alt="Algorithms" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23ddd%22 width=%22400%22 height=%22400%22/%3E%3Ctext fill=%22%23666%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not found%3C/text%3E%3C/svg%3E'">
+                <div class="nft-info">
+                    <span class="token-badge">Token #2</span>
+                    <h2>Алгоритмы и структуры данных</h2>
+                    <p>Образовательный NFT токен из лабораторной работы</p>
+                    <div class="ipfs-hash">
+                        🔗 QmWvrb1vnzR7PLvYkM1PCJ9FfAsSTNKMi718mUinw4qwZ
+                    </div>
+                    <a href="https://gateway.pinata.cloud/ipfs/QmSbayxdUidgXuG8WLeNQs3b4SBpqJWNphC2KxNB2ZMPNz" target="_blank" class="view-link">
+                        📄 Смотреть метаданные →
+                    </a>
+                </div>
+            </div>
+
+            <!-- NFT #3 -->
+            <div class="nft-card">
+                <img src="https://gateway.pinata.cloud/ipfs/QmPge5rofSywRKSg2W56x2KxkLirwCMZYqjwCMxxfDhZV" alt="Filesystem" onerror="this.src='image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23ddd%22 width=%22400%22 height=%22400%22/%3E%3Ctext fill=%22%23666%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not found%3C/text%3E%3C/svg%3E'">
+                <div class="nft-info">
+                    <span class="token-badge">Token #3</span>
+                    <h2>Файловая система</h2>
+                    <p>Образовательный NFT токен из лабораторной работы</p>
+                    <div class="ipfs-hash">
+                        🔗 QmPge5rofSywRKSg2W56x2KxkLirwCMZYqjwCMxxfDhZV
+                    </div>
+                    <a href="https://gateway.pinata.cloud/ipfs/QmRrYyNuHvTTQzoduvoqnV3fFHeANo1YmPY4p9xFK5ZhHs" target="_blank" class="view-link">
+                        📄 Смотреть метаданные →
+                    </a>
+                </div>
+            </div>
+
+            <!-- NFT #4 -->
+            <div class="nft-card">
+                <img src="https://gateway.pinata.cloud/ipfs/QmURsjJkC43L89xfpojyZ4Q9dvNnRooV8sdudy9tZS6Top" alt="Memory" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23ddd%22 width=%22400%22 height=%22400%22/%3E%3Ctext fill=%22%23666%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not found%3C/text%3E%3C/svg%3E'">
+                <div class="nft-info">
+                    <span class="token-badge">Token #4</span>
+                    <h2>Управление памятью</h2>
+                    <p>Образовательный NFT токен из лабораторной работы</p>
+                    <div class="ipfs-hash">
+                        🔗 QmURsjJkC43L89xfpojyZ4Q9dvNnRooV8sdudy9tZS6Top
+                    </div>
+                    <a href="https://gateway.pinata.cloud/ipfs/QmSa8fJLmP4Civw5e5FC2yLsMbosC8FMd7dqTmZVAGrcjh" target="_blank" class="view-link">
+                        📄 Смотреть метаданные →
+                    </a>
+                </div>
+            </div>
+
+            <!-- NFT #5 -->
+            <div class="nft-card">
+                <img src="https://gateway.pinata.cloud/ipfs/QmS7TYb7DRhEF4Rn9aUjokyGPDoku4njPWy36k7Z87cpp" alt="Networks" onerror="this.src='image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23ddd%22 width=%22400%22 height=%22400%22/%3E%3Ctext fill=%22%23666%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not found%3C/text%3E%3C/svg%3E'">
+                <div class="nft-info">
+                    <span class="token-badge">Token #5</span>
+                    <h2>Компьютерные сети</h2>
+                    <p>Образовательный NFT токен из лабораторной работы</p>
+                    <div class="ipfs-hash">
+                        🔗 QmS7TYb7DRhEF4Rn9aUjokyGPDoku4njPWy36k7Z87cpp
+                    </div>
+                    <a href="https://gateway.pinata.cloud/ipfs/QmX8qPFisqXiAaGkfowEEqQtatsFfgQ6y3xLadaQkUyndBf" target="_blank" class="view-link">
+                        📄 Смотреть метаданные →
+                    </a>
+                </div>
+            </div>
+
+            <!-- NFT #6 -->
+            <div class="nft-card">
+                <img src="https://gateway.pinata.cloud/ipfs/QmUVrG3chogFVHsRmMSSceNQosiAnwMLt2Qgy2xELmc2b" alt="Processes" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23ddd%22 width=%22400%22 height=%22400%22/%3E%3Ctext fill=%22%23666%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not found%3C/text%3E%3C/svg%3E'">
+                <div class="nft-info">
+                    <span class="token-badge">Token #6</span>
+                    <h2>Процессы в ОС</h2>
+                    <p>Образовательный NFT токен из лабораторной работы</p>
+                    <div class="ipfs-hash">
+                        🔗 QmUVrG3chogFVHsRmMSSceNQosiAnwMLt2Qgy2xELmc2b
+                    </div>
+                    <a href="https://gateway.pinata.cloud/ipfs/QmconPuBr63mPrRpyPLuC3R99dhxFmfW57BrPNxC729PMC" target="_blank" class="view-link">
+                        📄 Смотреть метаданные →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
