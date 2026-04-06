@@ -1,0 +1,36 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_20-eeb2677a124c57d7fab71843ef697e86a4965e6d",
+  "solcVersion": "0.8.20",
+  "solcLongVersion": "0.8.20+commit.a1b79de6",
+  "compilerType": "solc",
+  "userSourceNameMap": {
+    "contracts/DocumentSigning.sol": "project/contracts/DocumentSigning.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "shanghai",
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "evm.methodIdentifiers",
+            "metadata"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/DocumentSigning.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.20;\r\n\r\ncontract DocumentSigning {\r\n    uint256 public docCounter;\r\n\r\n    struct Document {\r\n        string hash;\r\n        address creator;\r\n        uint256 requiredSignatures;\r\n        uint256 signedCount;\r\n        bool exists;\r\n    }\r\n\r\n    mapping(uint256 => Document) public documents;\r\n    mapping(uint256 => mapping(address => bool)) public allowed;\r\n    mapping(uint256 => mapping(address => bool)) public signed;\r\n\r\n    event DocumentCreated(uint256 id, string hash);\r\n    event Signed(uint256 id, address signer);\r\n\r\n    function createDocument(\r\n        string memory _hash,\r\n        address[] memory _signers\r\n    ) public {\r\n        require(_signers.length > 0, \"No signers\");\r\n\r\n        docCounter++;\r\n\r\n        documents[docCounter] = Document({\r\n            hash: _hash,\r\n            creator: msg.sender,\r\n            requiredSignatures: _signers.length,\r\n            signedCount: 0,\r\n            exists: true\r\n        });\r\n\r\n        for (uint256 i = 0; i < _signers.length; i++) {\r\n            allowed[docCounter][_signers[i]] = true;\r\n        }\r\n\r\n        emit DocumentCreated(docCounter, _hash);\r\n    }\r\n\r\n    function signDocument(uint256 id) public {\r\n        require(documents[id].exists, \"No doc\");\r\n        require(allowed[id][msg.sender], \"Not allowed\");\r\n        require(!signed[id][msg.sender], \"Already signed\");\r\n\r\n        signed[id][msg.sender] = true;\r\n        documents[id].signedCount++;\r\n\r\n        emit Signed(id, msg.sender);\r\n    }\r\n\r\n    function isSigned(uint256 id, address user) public view returns (bool) {\r\n        return signed[id][user];\r\n    }\r\n\r\n    function isAllowed(uint256 id, address user) public view returns (bool) {\r\n        return allowed[id][user];\r\n    }\r\n\r\n    function isCompleted(uint256 id) public view returns (bool) {\r\n        return documents[id].signedCount == documents[id].requiredSignatures;\r\n    }\r\n}"
+      }
+    }
+  }
+}

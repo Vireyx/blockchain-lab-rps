@@ -1,0 +1,25 @@
+{
+  "name": "lab12-document-signing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "test": "node --test --import tsx"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^4.0.7",
+    "@nomicfoundation/hardhat-verify": "^3.0.13",
+    "@types/node": "^25.5.2",
+    "dotenv": "^17.4.1",
+    "hardhat": "^3.3.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  },
+  "dependencies": {
+    "ethers": "^6.16.0"
+  }
+}
